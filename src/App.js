@@ -19,13 +19,15 @@ class App extends Component {
     this.filterList = this.filterList.bind(this)
   }
   componentDidMount() {
+    // run api calls, returns an array of objects(data)
     api_calling().then(data => {
+      // set initial state of both data and filtered
       this.setState({ data: data, filtered:data})
-      console.log(this.state.data)
     });
   } 
 
   sortBy(key) {
+    // sorting algorithm from: https://gist.github.com/JoeChapman/2158435
     if (this.state.direction[key] === 'asc') {
       this.setState({
         data: this.state.data.sort( (a, b) => {
@@ -37,6 +39,7 @@ class App extends Component {
           }
           return typeof a[key] < typeof b[key] ? -1 : 1;
         }),
+        // change directions of sorting
         direction: {
           [key]: this.state.direction[key] === 'asc'
             ? 'desc'
@@ -65,6 +68,8 @@ class App extends Component {
             : 'asc'
         }
       })
+      // second sort to be applied on population to properly deal with
+      // "unknown" value
       this.setState({
         data: this.state.data.sort( (a,b) => {
           return b[key] - a[key]
@@ -74,12 +79,13 @@ class App extends Component {
   }
 
   filterList(query) {
+    // copy over data from original data array for mutation
     var updatedList = this.state.data;
     updatedList = updatedList.filter(function(item){
       return item.name.toLowerCase().search(
+        // query is an object, .target.value to access string
         query.target.value.toLowerCase()) !== -1;
     });
-    console.log(updatedList)
     this.setState({filtered: updatedList});
   }
 

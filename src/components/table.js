@@ -15,7 +15,7 @@ export default function PlanetTable(props) {
         <tbody>
           {
           	props.data.map((planet,index) => (
-	            <tr>
+	            <tr key={index}>
 		            <td> {index + 1} </td>
 		            <td> {planet.name} </td>
 		            <td> {planet.population} </td>
