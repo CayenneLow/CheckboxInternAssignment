@@ -7,8 +7,8 @@ export default function PlanetTable(props) {
         <thead>
           <tr>
           <th> # </th>
-          <th> Planet Name </th>
-          <th> Population </th>
+          <th> <button onClick={() => props.sortBy('name')}>Planet Name </button></th>
+          <th> <button onClick={() => props.sortBy('population')}>Population </button></th>
           <th> Terrain Details </th>
           </tr>
         </thead>
