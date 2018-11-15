@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import {api_calling} from './components/apidata.js';
 import PlanetTable from './components/table.js';
+import {Nav} from './components/navbar.js';
 
 class App extends Component {
   constructor(props) {
@@ -11,13 +12,15 @@ class App extends Component {
       direction: {
         name: 'asc',
         population: 'asc'
-      }
+      },
+      filtered: []
     }
     this.sortBy = this.sortBy.bind(this)
+    this.filterList = this.filterList.bind(this)
   }
   componentDidMount() {
     api_calling().then(data => {
-      this.setState({ data: data })
+      this.setState({ data: data, filtered:data})
       console.log(this.state.data)
     });
   } 
@@ -70,8 +73,23 @@ class App extends Component {
     }
   }
 
+  filterList(query) {
+    var updatedList = this.state.data;
+    updatedList = updatedList.filter(function(item){
+      return item.name.toLowerCase().search(
+        query.target.value.toLowerCase()) !== -1;
+    });
+    console.log(updatedList)
+    this.setState({filtered: updatedList});
+  }
+
   render() {
-    return (<PlanetTable data={this.state.data} sortBy={this.sortBy}/>)
+    return (
+      <div>
+        <Nav filterList={this.filterList}/>,
+        <PlanetTable data={this.state.filtered} sortBy={this.sortBy}/>
+      </div>
+      )
   }
 }
 
