@@ -30,7 +30,7 @@ class App extends Component {
     // sorting algorithm from: https://gist.github.com/JoeChapman/2158435
     if (this.state.direction[key] === 'asc') {
       this.setState({
-        data: this.state.data.sort( (a, b) => {
+        filtered: this.state.filtered.sort( (a, b) => {
           if (a[key] === b[key]) {
           return 0;
           }
@@ -47,13 +47,13 @@ class App extends Component {
         }
       })
       this.setState({
-        data: this.state.data.sort( (a,b) => {
+        filtered: this.state.filtered.sort( (a,b) => {
           return a[key] - b[key]
         })
       })
     } else {
      this.setState({
-        data: this.state.data.sort( (a, b) => {
+        filtered: this.state.filtered.sort( (a, b) => {
           if (a[key] === b[key]) {
           return 0;
           }
