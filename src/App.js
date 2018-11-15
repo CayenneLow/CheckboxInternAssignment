@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {api_calling} from './components/apidata.js';
+import PlanetTable from './components/table.js';
 
 class App extends Component {
   state = { data: []};
@@ -10,9 +11,9 @@ class App extends Component {
       console.log(this.state.data)
     });
   }
-  
+
   render() {
-    return <h1> planets </h1>
+    return (<PlanetTable data={this.state.data}/>)
   }
 }
 
