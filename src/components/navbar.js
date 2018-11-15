@@ -4,10 +4,10 @@ import {Navbar, FormGroup, FormControl} from 'react-bootstrap'
 export class Nav extends React.Component {
 	render() {
 		return(
-			<Navbar>
+			<Navbar fluid inverse staticTop>
   				<Navbar.Header>
 	    			<Navbar.Brand>
-	      				<a href="#home">Star Wars' Planets</a>
+	    				Star Wars' Planets
 	    			</Navbar.Brand>
 	    			<Navbar.Toggle />
   				</Navbar.Header>
