@@ -38,7 +38,7 @@ export default function PlanetTable(props) {
                         placement="right"
                         overlay= 
                         <Popover id="popover-trigger-hover-focus" title={planet.name}>
-                          <strong>Diameter: &nbsp;</strong>{planet.rotation_period} <br/>
+                          <strong>Diameter: &nbsp;</strong>{planet.diameter} km<br/>
                           <strong>Climate: &nbsp;</strong>{planet.climate} <br/>
                           <strong>Gravity: &nbsp;</strong>{planet.gravity} <br/>
                           <strong>Surface Water: &nbsp;</strong>{planet.surface_water} <br/>
