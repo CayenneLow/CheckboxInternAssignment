@@ -26,6 +26,7 @@ export default function PlanetTable(props) {
         </thead>
         <tbody>
           {
+            // maps each item in props to a row/entry in the table
           	props.data.map((planet,index) => (
 	            <tr key={index} style={{fontSize:15}}>
 		            <td> {index + 1} </td>

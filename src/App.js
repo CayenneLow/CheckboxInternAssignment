@@ -18,6 +18,7 @@ class App extends Component {
     this.sortBy = this.sortBy.bind(this)
     this.filterList = this.filterList.bind(this)
   }
+  
   componentDidMount() {
     // run api calls, returns an array of objects(data)
     api_calling().then(data => {
@@ -27,54 +28,39 @@ class App extends Component {
   } 
 
   sortBy(key) {
+    // setting key2 so direction doesn't become undefined
+    var key2
+    key2 = key === 'name' ? 'population' : 'name'
     // sorting algorithm from: https://gist.github.com/JoeChapman/2158435
-    if (this.state.direction[key] === 'asc') {
-      this.setState({
-        filtered: this.state.filtered.sort( (a, b) => {
-          if (a[key] === b[key]) {
+    this.setState({
+      filtered: this.state.filtered.sort( (a, b) => {
+        if (a[key] === b[key]) {
           return 0;
-          }
-          if (typeof a[key] === typeof b[key]) {
-            return a[key] < b[key] ? -1 : 1;
-          }
-          return typeof a[key] < typeof b[key] ? -1 : 1;
-        }),
-        // change directions of sorting
-        direction: {
-          [key]: this.state.direction[key] === 'asc'
-            ? 'desc'
-            : 'asc'
         }
-      })
-      this.setState({
-        filtered: this.state.filtered.sort( (a,b) => {
-          return a[key] - b[key]
-        })
-      })
-    } else {
-     this.setState({
-        filtered: this.state.filtered.sort( (a, b) => {
-          if (a[key] === b[key]) {
-          return 0;
-          }
-          if (typeof a[key] === typeof b[key]) {
-            return b[key] < a[key] ? -1 : 1;
-          }
-          return typeof b[key] < typeof a[key] ? -1 : 1;
-        }),
-        direction: {
-          [key]: this.state.direction[key] === 'asc'
-            ? 'desc'
-            : 'asc'
+        if (typeof a[key] === typeof b[key]) {
+          return a[key] < b[key] ? -1 : 1;
         }
+        return typeof a[key] < typeof b[key] ? -1 : 1;
+      }),
+      // change directions of sorting
+      direction: {
+        [key]: this.state.direction[key] === 'asc'
+          ? 'desc'
+          : 'asc' ,
+        [key2]: this.state.direction[key2]
+      }
+    })
+    // extra sort for population 'unknown' value
+    this.setState({
+      filtered: this.state.filtered.sort( (a,b) => {
+        return a[key] - b[key]
       })
-      // second sort to be applied on population to properly deal with
-      // "unknown" value
+    }) 
+    // if descending, reverse array
+    if (this.state.direction[key] === 'desc') {
       this.setState({
-        data: this.state.data.sort( (a,b) => {
-          return b[key] - a[key]
-        })
-      }) 
+        filtered: this.state.filtered.reverse()
+      });
     }
   }
 
